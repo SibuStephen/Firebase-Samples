@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Fire</title>
+	<script type="text/javascript" src="bower_components/firebase/firebase.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angularfire/dist/angularfire.min.js"></script>
+</head>
+<body ng-app="firebaseSample">
+
+<h2>Angular Firebase Chat</h2>
+
+<div ng-controller="chatController">
+	<div>
+		<input ng-model="userName" /> <br/>
+		<textarea ng-model="chatMessage" rows="5" cols="50"></textarea> 
+		<button ng-click="postMessage()">Go</button>
+	</div>
+
+	<hr/>
+
+	<div ng-repeat="message in messages">
+		{{message.message}} <br/>
+		<sup>says <strong>{{message.username}}</strong></sup> 
+		<br/>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var module1 = angular.module('firebaseSample', ['firebase']);
+
+	module1.controller('chatController', function($scope, $firebaseArray){
+		var ref = new Firebase("https://luminous-fire-1371.firebaseio.com/");
+		var scopeRef = $firebaseArray(ref);
+
+		$scope.postMessage = function(){
+			scopeRef.$add({
+				message: $scope.chatMessage,
+				username: $scope.userName
+			});
+		};
+
+		$scope.messages = scopeRef;
+
+
+	});
+
+</script>
+
+</body>
+</html>
