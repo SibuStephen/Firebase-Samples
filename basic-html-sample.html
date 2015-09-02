@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase Sample</title>
+	<script type="text/javascript" src="bower_components/firebase/firebase.js"></script>
+</head>
+<body>
+<h2>Hello Firebase Chat</h2>
+
+<input type="text" placeholder="Enter your chat user name" id="userName" /><br/>
+
+<textarea id="message" placeholder="Enter your chat message here." rows="5" cols="50"></textarea> <button id="btnGo">Go</button>
+
+<hr/>
+
+<div id="results"></div>
+
+<script type="text/javascript">
+
+	var chatMessage;
+		var btnGo = document.querySelector("#btnGo");
+	var ref = new Firebase("https://luminous-fire-1371.firebaseio.com/");
+
+	btnGo.addEventListener("click", function(){
+		ref.push({username: document.querySelector("#userName").value, message: document.querySelector("#message").value});
+	});
+
+	ref.on('child_added', function(data){
+		var messageObject= data.val();
+		document.querySelector('#results').innerHTML = "<div>" +
+			messageObject.message + "<br/>" +
+			"<sup> says <strong>" + messageObject.username + "</strong></sup>" + 
+			"</div> <br/>" + 
+			document.querySelector('#results').innerHTML ;
+	});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "Firebase Samples",
+  "version": "0.0.0",
+  "authors": [
+    "V Keerti Kotaru <kvkirthy@gmail.com>"
+  ],
+  "description": "Firebase Samples by VENCKI",
+  "license": "MIT",
+  "homepage": "http://bit.ly/VENCKI",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "~2.2.9"
+  }
+}
