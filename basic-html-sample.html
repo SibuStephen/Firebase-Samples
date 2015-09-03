@@ -3,6 +3,12 @@
 <head>
 	<title>Firebase Sample</title>
 	<script type="text/javascript" src="bower_components/firebase/firebase.js"></script>
+
+	<style type="text/css">
+		.me{
+			text-align:right;
+		}
+	</style>
 </head>
 <body>
 <h2>Hello Firebase Chat</h2>
@@ -27,7 +33,8 @@
 
 	ref.on('child_added', function(data){
 		var messageObject= data.val();
-		document.querySelector('#results').innerHTML = "<div>" +
+		var cssClass = (document.querySelector("#userName").value == messageObject.username)?'me':'';
+		document.querySelector('#results').innerHTML = "<div class="+ cssClass + ">" + 
 			messageObject.message + "<br/>" +
 			"<sup> says <strong>" + messageObject.username + "</strong></sup>" + 
 			"</div> <br/>" + 
