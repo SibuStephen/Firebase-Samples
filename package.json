@@ -1,0 +1,25 @@
+{
+  "name": "firebase-samples",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "connect": "~3.4.0",
+    "serve-static": "~1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kvkirthy/Firebase-Samples.git"
+  },
+  "author": "V Keerti Kotaru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kvkirthy/Firebase-Samples/issues"
+  },
+  "homepage": "https://github.com/kvkirthy/Firebase-Samples"
+}
