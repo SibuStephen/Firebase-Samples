@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Authorization</title>
+	<script type="text/javascript" src="bower_components/firebase/firebase.js"></script>
+</head>
+<body>
+
+<button id="btnTwitterLogin">Login with Twitter</button>
+
+<div id="sectionChatInput">
+	<strong id="lblUserId"></strong> <br/><br/>
+	<textarea id="txtChatMessage"  rows="5" cols="50" placeholder="Enter your message here"></textarea>	
+	<button id="btnPostMessage">Go</button>
+</div>
+
+<hr/>
+
+<div id="chatResponses">
+	
+</div>
+
+
+<script type="text/javascript">
+	var btnTwitterLogin = document.querySelector("#btnTwitterLogin"), btnPostMessage = document.querySelector("#btnPostMessage"), txtChatMessage = document.querySelector("#txtChatMessage"), lblUserId = document.querySelector("#lblUserId");
+	var ref = new Firebase('https://luminous-fire-1371.firebaseio.com/');
+
+	btnTwitterLogin.addEventListener("click", function(){
+		ref.authWithOAuthPopup("twitter",function(error, authData){
+			if(!error){
+				lblUserId.value = authData.twitter.username;
+				lblUserId.textContent = "Welcome @" + authData.twitter.username;
+			}
+		}, {remember:"none"});
+	});
+
+	btnPostMessage.addEventListener("click", function(){
+		ref.push({
+			message: txtChatMessage.value,
+			username: lblUserId.value || ''
+		}, function(error){
+			if(error){
+				alert("error adding message " + error);
+			}
+		});
+	});
+
+	ref.on('child_added', function(response){		
+		var messageObject= response.val();
+		if(messageObject.username && messageObject.message){
+			document.querySelector('#chatResponses').innerHTML = "<div>" +
+				messageObject.message + "<br/>" +
+				"<sup> says <strong>" + messageObject.username + "</strong></sup>" + 
+				"</div> <br/>" + 
+				document.querySelector('#chatResponses').innerHTML ;
+		}
+		
+	}, function(error){
+		console.log("Error in child added " + error);
+	});
+
+</script>
+
+</body>
+</html>
